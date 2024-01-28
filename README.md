@@ -12,3 +12,6 @@ python main.py
 
 Розроблено студентом Vladyslav Bezruk 
 https://t.me/vladyslavbezruk
+
+P.S.
+В назві груп символ / замінено на ^ так як файл із символом / не можна створити
