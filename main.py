@@ -51,6 +51,14 @@ def backup_schedules():
                 if not os.path.exists(path_json):
                     os.mkdir(path_json)
 
+                if count_all < 500:
+                    path_json = os.path.join(path_json, '0-499')
+                else:
+                    path_json = os.path.join(path_json, '500-end')
+
+                if not os.path.exists(path_json):
+                    os.mkdir(path_json)
+
                 path_json = os.path.join(path_json, filename_json)
 
                 url_json = config.site_schedules + group_code + '&date_end=' + formatted_date
@@ -61,7 +69,7 @@ def backup_schedules():
 
                 # pdf
 
-                filename_pdf = str(groups[group_code]).replace('/', '-') + '.pdf'
+                filename_pdf = str(groups[group_code]).replace('/', '^') + '.pdf'
 
                 path_pdf = os.path.join(paths.backups_file_path, 'pdf', str(datetime.now().date()))
 
@@ -118,4 +126,4 @@ end_time = time.time()
 
 elapsed_time = end_time - start_time
 
-print(f"Час виконання: {elapsed_time} секунд")
+print('Час виконання: ' + str(round(elapsed_time)) + ' секунд')
