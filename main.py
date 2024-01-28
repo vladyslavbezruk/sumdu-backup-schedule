@@ -44,7 +44,8 @@ def backup_schedules():
 
             try:
                 # json
-                filename_json = 'schedule-' + group_code + '.json'
+
+                filename_json = str(groups[group_code]).replace('/', '^') + '-' + str(group_code) + '.json'
 
                 path_json = os.path.join(paths.backups_file_path, 'json', str(datetime.now().date()))
 
@@ -67,9 +68,11 @@ def backup_schedules():
 
                 files.save_file(schedule_json, path_json)
 
+                print('Створено файл ' + path_json)
+
                 # pdf
 
-                filename_pdf = str(groups[group_code]).replace('/', '^') + '.pdf'
+                filename_pdf = str(groups[group_code]).replace('/', '^') + '-' + str(group_code) + '.pdf'
 
                 path_pdf = os.path.join(paths.backups_file_path, 'pdf', str(datetime.now().date()))
 
@@ -81,15 +84,17 @@ def backup_schedules():
                 if not os.path.exists(path_pdf):
                     os.mkdir(path_pdf)
 
-                path = os.path.join(path_pdf, filename_pdf)
+                path_pdf = os.path.join(path_pdf, filename_pdf)
 
                 url_pdf = config.site_pdf_schedules + group_code + '&date_end=' + formatted_date
 
                 schedule_pdf = requests.get(url_pdf)
 
                 if schedule_pdf.status_code == 200:
-                    with open(path, 'wb') as file:
+                    with open(path_pdf, 'wb') as file:
                         file.write(schedule_pdf.content)
+
+                        print('Створено файл ' + path_pdf)
                 else:
                     flag = True
 
@@ -113,7 +118,6 @@ def backup_schedules():
     print('Всього груп ' + str(count_all))
     print('Успішно збережено ' + str(count_ok))
     print('Не збережено ' + str(count_error))
-    input()
 
 
 start_time = time.time()
@@ -127,3 +131,5 @@ end_time = time.time()
 elapsed_time = end_time - start_time
 
 print('Час виконання: ' + str(round(elapsed_time)) + ' секунд')
+
+input()
