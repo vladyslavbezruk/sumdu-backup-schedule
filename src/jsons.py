@@ -1,4 +1,5 @@
 import requests
+
 from src import files
 
 requests.packages.urllib3.disable_warnings()
@@ -8,13 +9,16 @@ try:
 except AttributeError:
     pass
 
+
 def load_json(path):
     data = files.load_file(path)
 
     return data
 
+
 def save_json(data, path):
     files.save_file(data, path)
+
 
 def download_json(url):
     data = requests.get(url, verify=False)

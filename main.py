@@ -1,10 +1,11 @@
 import os.path
-
-from src import paths
-from src import files
-from src import config
-from src import jsons
 from datetime import datetime, timedelta
+
+from src import config
+from src import files
+from src import jsons
+from src import paths
+
 
 def update_groups():
     try:
@@ -17,6 +18,7 @@ def update_groups():
         print('Оновлено групи')
     except:
         print('Не було оновлено групи')
+
 
 def backup_schedules():
     groups = files.load_file(paths.groups_file_path)
@@ -59,6 +61,7 @@ def backup_schedules():
                 print('Успішно зроблено бекап для групи ' + groups[group_code])
 
             print('Загальний прогрес ' + str(round(100.0 * i / len(groups), 3)) + '%')
+
 
 update_groups()
 
