@@ -68,6 +68,11 @@ def backup_schedules():
                 if not os.path.exists(path_pdf):
                     os.mkdir(path_pdf)
 
+                path_pdf = os.path.join(path_pdf, str(groups[group_code])[0])
+
+                if not os.path.exists(path_pdf):
+                    os.mkdir(path_pdf)
+
                 path = os.path.join(path_pdf, filename_pdf)
 
                 url_pdf = config.site_pdf_schedules + group_code + '&date_end=' + formatted_date
